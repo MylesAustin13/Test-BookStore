@@ -7,6 +7,7 @@ public interface BookDao {
 
     void addBook(Book book) throws SQLException;
 
+    Book getBook(int id) throws SQLException;
     List<Book> getBooksByCategory (String category) throws SQLException;
     List<Book> getAllBooks() throws SQLException;
 

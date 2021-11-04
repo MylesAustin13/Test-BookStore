@@ -1,6 +1,7 @@
 package org.example.Books;
 
 import org.example.ConnectionFactory;
+import org.example.Users.User;
 
 import javax.swing.plaf.nimbus.State;
 import java.sql.*;
@@ -40,6 +41,33 @@ public class BookDaoImpl implements BookDao{
             System.out.println("Problem adding this book.");
         }
 
+    }
+
+    @Override
+    public Book getBook(int id) throws SQLException {
+        String sql = "select * from books where bookid = ?";
+
+        PreparedStatement prepped = connection.prepareStatement(sql);
+        prepped.setInt(1,id);
+
+        ResultSet resultSet = prepped.executeQuery();
+        if(resultSet.next()){
+            int bid = resultSet.getInt(1);
+            String title = resultSet.getString(2);
+            String author = resultSet.getString(3);
+            double price = resultSet.getDouble(4);
+            String cat = resultSet.getString(5);
+            String desc = resultSet.getString(6);
+            int isbn = resultSet.getInt(7);
+
+
+            Book book = new Book(bid, title, author, price, cat, desc, isbn);
+            return book;
+        }
+        else{
+            System.out.println("No book found with that ID!");
+            return null;
+        }
     }
 
     @Override

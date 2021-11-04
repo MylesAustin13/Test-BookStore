@@ -13,6 +13,19 @@ public class Book {
 
     }
 
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", price=" + price +
+                ", category='" + category + '\'' +
+                ", description='" + description + '\'' +
+                ", isbn=" + isbn +
+                '}';
+    }
+
     public Book(int id, String title, String author, double price, String category, String description, int isbn) {
         this.id = id;
         this.title = title;

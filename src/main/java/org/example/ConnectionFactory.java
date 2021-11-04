@@ -15,7 +15,7 @@ public class ConnectionFactory {
 
     public static Connection getConnection(){
         if(connection == null){
-            ResourceBundle bundle = ResourceBundle.getBundle("main/java/org.example/dbConfig");
+            ResourceBundle bundle = ResourceBundle.getBundle("dbConfig");
             String url = bundle.getString("url");
             String username= bundle.getString("username");
             String password = bundle.getString("password");

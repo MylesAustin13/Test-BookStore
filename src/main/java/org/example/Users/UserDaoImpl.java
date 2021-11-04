@@ -31,7 +31,7 @@ public class UserDaoImpl implements UserDao{
         }
 
         if(rows > 0){
-            System.out.println("Book added!");
+            System.out.println("User created!");
         }
         else{
             System.out.println("Problem adding this book.");
