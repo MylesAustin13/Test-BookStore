@@ -8,10 +8,9 @@ import org.example.Users.User;
 import org.example.Users.UserDao;
 import org.example.Users.UserDaoImplFactory;
 
+
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class App
 {
@@ -100,10 +99,11 @@ public class App
             while(is_user_logged_in){
                 System.out.println("Welcome, " + activeUser.getUsername() + "! What would you like to do today?");
                 System.out.println("1: Choose a book to purchase");
-                System.out.println("2: View books by category");
-                System.out.println("3: View all books");
-                System.out.println("4: View cart");
-                System.out.println("5: Purchase items in cart");
+                System.out.println("2: View all categories");
+                System.out.println("3: View books by category");
+                System.out.println("4: View all books");
+                System.out.println("5: View cart");
+                System.out.println("6: Purchase items in cart");
                 System.out.println("0: Exit without purchasing");
                 int logged_user_choice = scanner.nextInt();
                 switch (logged_user_choice){
@@ -141,6 +141,26 @@ public class App
                         }
                         break;
                     case 2:
+                        Set<String> categories = new TreeSet<>();
+                        try {
+                            List<Book> allBooks = bDao.getAllBooks();
+                            for(Book b: allBooks){
+                                categories.add(b.getCategory());
+                            }
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                        if(categories.size() == 0){
+                            System.out.println("Library empty.");
+                        }
+                        else{
+                            System.out.println("Categories: ");
+                            for(String s: categories){
+                                System.out.println(s);
+                            }
+                        }
+                        break;
+                    case 3:
                         System.out.println("Enter a category: ");
                         String category = scanner.next();
                         try {
@@ -158,7 +178,7 @@ public class App
                             e.printStackTrace();
                         }
                         break;
-                    case 3:
+                    case 4:
                         System.out.println("Showing all books...");
                         try {
                             List<Book> allBooks = bDao.getAllBooks();
@@ -169,7 +189,7 @@ public class App
                             e.printStackTrace();
                         }
                         break;
-                    case 4:
+                    case 5:
                         if(cart.size() == 0){
                             System.out.println("Cart Empty.");
                         }
@@ -180,7 +200,7 @@ public class App
                             }
                         }
                         break;
-                    case 5:
+                    case 6:
                         double total_price = 0;
                         for(Book b : cart){
                             total_price += b.getPrice();
